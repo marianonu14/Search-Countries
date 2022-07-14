@@ -18,6 +18,7 @@ function App() {
   }, [])
 
   const handleInput = (e) => {
+    setState(false)
     const search = e.target.value.toLowerCase()
     if(search === ''){
       setInput([])
@@ -47,7 +48,7 @@ function App() {
           <li key={`country-${index}`}>
             <h2 >{country.name.common}</h2>
             <p><strong>Capital: </strong>{country.capital}</p>
-            <p><strong>Population: </strong>{country.population}</p>
+            <p><strong>Population: </strong>{new Intl.NumberFormat('de-DE').format(country.population)}</p>
             <p><strong>Languages: </strong>{country.languages !== undefined ? Object.values(country.languages).map((elem,index) => <span key={`lang-${index}`}>{elem} / </span>):''}</p>
             <img src={country.flags.png} alt="Country Flag" style={{height: "40px"}} />
           </li>)
@@ -62,12 +63,13 @@ function App() {
       <p>Filter</p>
       <input onChange={handleInput} />
       <br />
+      <p>{countries.length === 0 ? 'Loading' : ''}</p>
       <ul>{render()}</ul>
       <ul>{state ? 
         <li>
-          <h2 >{toggle.name.common}</h2>
+          <h2>{toggle.name.common}</h2>
           <p><strong>Capital: </strong>{toggle.capital}</p>
-          <p><strong>Population: </strong>{toggle.population}</p>
+          <p><strong>Population: </strong>{new Intl.NumberFormat('de-DE').format(toggle.population)}</p>
           <p><strong>Languages: </strong>{toggle.languages !== undefined ? Object.values(toggle.languages).map((elem,index) => <span key={`lang-${index}`}>{elem} / </span>):''}</p>
           <img src={toggle.flags.png} alt="Country Flag" style={{height: "40px"}} />
         </li> : ''}
